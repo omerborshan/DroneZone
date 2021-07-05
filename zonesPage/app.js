@@ -99,37 +99,37 @@ legend.onAdd = function () {
 
 legend.addTo(myMap);
 
-let x = 0.0002;
-let y = 0.0001;
-let circleBool = 0;
-setInterval(() => {
-  parsedLng += x;
-  parsedLat += y;
+// let x = 0.0002;
+// let y = 0.0001;
+// let circleBool = 0;
+// setInterval(() => {
+//   parsedLng += x;
+//   parsedLat += y;
 
-  var newLatLng = new L.LatLng(parsedLat, parsedLng);
-  droneMarker
-    .setLatLng(newLatLng)
-    .bindPopup(
-      `Your drone location is:${parsedLat.toFixed(6)} , ${parsedLng.toFixed(6)}`
-    );
-}, 1000);
+//   var newLatLng = new L.LatLng(parsedLat, parsedLng);
+//   droneMarker
+//     .setLatLng(newLatLng)
+//     .bindPopup(
+//       `Your drone location is:${parsedLat.toFixed(6)} , ${parsedLng.toFixed(6)}`
+//     );
+// }, 1000);
 
-setInterval(() => {
-  if (circleBool === 0) {
-    x *= 1;
-    y *= -1;
-    circleBool += 1;
-  } else if (circleBool === 1) {
-    x *= -1;
-    y *= -1;
-    circleBool += 1;
-  } else if (circleBool === 2) {
-    x *= -1;
-    y *= 1;
-    circleBool += 1;
-  } else {
-    x *= 1;
-    y *= 1;
-    circleBool = 0;
-  }
-}, 5000);
+// setInterval(() => {
+//   if (circleBool === 0) {
+//     x *= 1;
+//     y *= -1;
+//     circleBool += 1;
+//   } else if (circleBool === 1) {
+//     x *= -1;
+//     y *= -1;
+//     circleBool += 1;
+//   } else if (circleBool === 2) {
+//     x *= -1;
+//     y *= 1;
+//     circleBool += 1;
+//   } else {
+//     x *= 1;
+//     y *= 1;
+//     circleBool = 0;
+//   }
+// }, 5000);
