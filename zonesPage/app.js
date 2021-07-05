@@ -3,6 +3,10 @@ const urlParams = new URLSearchParams(queryString);
 
 let lat = urlParams.get("lat");
 let lng = urlParams.get("lng");
+
+let parsedLng = parseFloat(lng);
+let parsedLat = parseFloat(lat);
+
 let layer_1, layer_2;
 //let myMap = L.map("mapid").setView([lat, lng], 13);
 
@@ -57,4 +61,75 @@ fetch("../assets/prohibited_airspace.kml")
 
 console.log("" + lat, ",", lng);
 
-var marker = L.marker([lat, lng]).addTo(myMap);
+var droneIcon = L.icon({
+  iconUrl: "../assets/drone.png",
+
+  iconSize: [80, 110], // size of the icon
+  iconAnchor: [31, 90], // point of the icon which will correspond to marker's location
+  popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+});
+var droneMarker = L.marker([lat, lng], { icon: droneIcon })
+  .addTo(myMap)
+  .bindPopup(`Your drone location is: \n ${parsedLat} , ${parsedLng}`);
+var myLocationMarker = L.marker([lat, lng]).addTo(myMap).on(`click`, clickZoom);
+
+function clickZoom(e) {
+  myMap.setView(e.target.getLatLng(), 20);
+}
+
+/*Legend specific*/
+var legend = L.control({ position: "bottomleft" });
+
+legend.onAdd = function () {
+  var div = L.DomUtil.create("div", "legend");
+  div.innerHTML += "<h4>מקרא מפה</h4>";
+  div.innerHTML +=
+    '<i style="background: #477AC2"></i><span>שדות תעופה ומנחתים</span><br>';
+  div.innerHTML +=
+    '<i style="background: #448D40"></i><span>שמורת טבע</span><br>';
+  div.innerHTML +=
+    '<i style="background: rgb(184, 9, 9)"></i><span>ביטחוני</span><br>';
+  div.innerHTML +=
+    '<i style="background: rgb(231, 115, 47)"></i><span>מנהלי</span><br>';
+  div.innerHTML +=
+    '<i style="background: rgb(179, 11, 151);"></i><span>כללי</span><br>';
+
+  return div;
+};
+
+legend.addTo(myMap);
+
+let x = 0.0002;
+let y = 0.0001;
+let circleBool = 0;
+setInterval(() => {
+  parsedLng += x;
+  parsedLat += y;
+
+  var newLatLng = new L.LatLng(parsedLat, parsedLng);
+  droneMarker
+    .setLatLng(newLatLng)
+    .bindPopup(
+      `Your drone location is:${parsedLat.toFixed(6)} , ${parsedLng.toFixed(6)}`
+    );
+}, 1000);
+
+setInterval(() => {
+  if (circleBool === 0) {
+    x *= 1;
+    y *= -1;
+    circleBool += 1;
+  } else if (circleBool === 1) {
+    x *= -1;
+    y *= -1;
+    circleBool += 1;
+  } else if (circleBool === 2) {
+    x *= -1;
+    y *= 1;
+    circleBool += 1;
+  } else {
+    x *= 1;
+    y *= 1;
+    circleBool = 0;
+  }
+}, 5000);

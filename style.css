@@ -4,9 +4,16 @@
   box-sizing: border-box;
 }
 
-header {
+.header {
   text-align: center;
   margin-top: 15px;
+  animation: fadeAndUp ease-in 1s;
+}
+
+.subHeader {
+  text-align: center;
+  margin-top: 15px;
+  animation: fadeAndUp ease-in 1s 0.5s backwards;
 }
 
 img {
@@ -19,15 +26,29 @@ img {
   height: 60vh;
 }
 
-.leftContainer,
+.leftContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeToRight ease-in 1s 0.75s backwards;
+}
+.leftContainer img {
+  filter: drop-shadow(-10px 0px 5px rgba(0, 0, 0, 0.1));
+}
+
 .rightContainer {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation: fadeToLeft ease-in 1s 0.75s backwards;
 }
-
+.rightContainer img {
+  filter: drop-shadow(-10px 0px 5px rgba(0, 0, 0, 0.1));
+}
 button {
   margin-top: 30px;
 }
@@ -39,10 +60,63 @@ button {
 .list li:nth-child(1) {
   font-size: 25px;
   margin-bottom: 10px;
+  animation: fadeAndUp ease-in 1s 1.5s backwards;
+}
+.list li:nth-child(2) {
+  margin-bottom: 10px;
+  animation: fadeAndUp ease-in 1s 1.7s backwards;
+}
+.list li:nth-child(3) {
+  margin-bottom: 10px;
+  animation: fadeAndUp ease-in 1s 1.9s backwards;
+}
+.list li:nth-child(4) {
+  margin-bottom: 10px;
+  animation: fadeAndUp ease-in 1s 2.1s backwards;
 }
 
 img {
   transition: all 0.6s ease-in-out;
   -webkit-filter: drop-shadow(2px 2px 10px 12px rgba(0, 0, 0, 0.7));
   filter: drop-shadow(2px 2x 10px 12px rgba(0, 0, 0, 0.9));
+}
+
+@keyframes fadeAndUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeToRight {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeToLeft {
+  0% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.legend {
+  width: 400px;
+  height: 600px;
+  background-color: black;
+  position: absolute;
+  z-index: 50;
 }

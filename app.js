@@ -3,7 +3,8 @@ let searchBox = document.querySelector(".search-input");
 let myLocationBtn = document.querySelector(".myLocationBtn");
 
 viewBtn.addEventListener("click", async () => {
-  const res = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${searchBox.value}&key=6544c06a51c24b71a3fcf75528edb59a
+  const res =
+    await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${searchBox.value}&key=6544c06a51c24b71a3fcf75528edb59a
   `);
   const { lat, lng } = res.data.results[0].geometry;
   window.location = `./zonesPage/index.html?lat=${lat}&lng=${lng}`;
